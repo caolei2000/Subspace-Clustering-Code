@@ -22,3 +22,5 @@ normN = sum(kerN .^2, 2) .^.5;
 kerNS = bsxfun(@rdivide, kerN, normN + eps);  % 对其按行标准化, 得到指示向量矩阵,size(kerNS)=n*k.
 [idx, center] = kmeans(kerNS,n,'MaxIter',MAX_ITER,'Replicates',REPLIC);
 
+end
+

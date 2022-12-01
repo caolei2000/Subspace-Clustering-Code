@@ -27,6 +27,14 @@ idxKmeans = kmeans(fea', nCluster);  % kmeans的数据输入格式是n*d, 所以转置一下.
 MetricsKmeans
 %% GPCA
 disp('Clustering by GPCA');
-idxGPCA = GPCA(fea, nCluster, 'Exp_-sin^2');
+method = 'Cos';
+idxGPCA = GPCA(fea, nCluster, method);
 [MetricsGPCA.ca, MetricsGPCA.nmi, ~, ~, ~, ~] = ComputeMetrics(gnd, idxGPCA);
 MetricsGPCA
+%% RANSAC
+disp('Clustering by RANSAC');
+d = 5;  % 要找到的子空间的维度
+threshold = 0.01;  % 算法参数, 一个阈值
+idxRANSAC = RANSAC(fea, d, nCluster, threshold);
+[MetricsRANSAC.ca, MetricsRANSAC.nmi, ~, ~, ~, ~] = ComputeMetrics(gnd, idxRANSAC);
+MetricsRANSAC
