@@ -1,4 +1,4 @@
-function [group,c,Dpn,Ln] = GPCA(x,n,method)
+function [idx, c, Dpn, Ln] = GPCA(x, n, method)
 % [group,c,Dpn,Ln] = gpca_pda_spectralcluster(x,n,k,method)
 %
 % POLYNOMIAL DIFFERENTIATION ALGORITHM (PDA) WITH SPECTRAL CLUSTERING
@@ -21,8 +21,8 @@ function [group,c,Dpn,Ln] = GPCA(x,n,method)
 %       'Exp_-sin^2'    exp of squared sine
 %
 % Outputs:
-%   group   vector containing group membership number for each point (即索引, size(group)=n*1)
-%   c       vector with the coefficients of the fitted polynomial (拟合的多项式的系数)
+%   idx   vector containing group membership number for each point (即索引, size(idx)=n*1)
+%   c       vector with the coefficients of the fitted polynomial (拟合的多项式的系数, size(c)=未知*1)
 %   Dpn     unit length normals estimated from the polynomial
 %           differentiation (每个样本点的单位长度法线估计, size(Dpn)=未知*n)
 %   Ln      Veronese embedding of the points (样本点的维罗纳式嵌入, size(Ln)=n*未知)
@@ -30,7 +30,6 @@ function [group,c,Dpn,Ln] = GPCA(x,n,method)
 if (nargin<3)
     method='Cos^2';
 end
-
 
 [K,N] = size(x);
 Mn = nchoosek(n+K-1,n);
@@ -63,8 +62,5 @@ switch method
     case 'Exp_-sin^2'
         affMat=exp((abs(Dpn'*Dpn)).^2-1); % i.e., exp(-sin^2)
 end
-
-
-
 %segment using spectral clustering
-group=SpectralClustering(affMat,n);
+idx=SpectralClustering(affMat,n);
