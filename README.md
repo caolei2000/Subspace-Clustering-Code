@@ -1,6 +1,8 @@
 # Subspace-Clustering-Code
 
- code for some subspace clustering algorithm
+ code for some subspace clustering algorithms
+
+ 使用方法: 运行 `run_YaleB.m` 文件. 里面主要是进行了加载数据集, 预处理, 调用 `xxx()` 对应算法, 然后 `ComputeMetrics()` 计算指标.
 
  ## GPCA
 
