@@ -1,25 +1,24 @@
-function [CA, NMI, AR, F, P, R] = spectralClustering(A,k,truth)
-%spectralClustering:输入相似矩阵（亲和力矩阵），进行谱聚类.
-%一次谱聚类, 里面默认进行了10次kmeans, 每次计算指标, 最后取均值, 返回指标.
-%Input:
-%       A:相似矩阵，size(A)=n*n
-%       k:聚类簇数
-%Output:
-%       CA:聚类准确度
-%       NMI: 归一化互信息
-%       AR: 调整兰德指数
-%       F: F1
-%       P: precision
-%       R: recall
+function [idx, center, kerNS] = SpectralClustering(sM, k)
+%SpectralClustering 
+% 输入相似度矩阵（亲和力矩阵），进行谱聚类. 一次谱聚类, 里面默认进行了20次kmeans.
+% Input:
+%       sM:相似度矩阵，size(sM)=n*n;
+%       k:聚类簇数;
+% Output:
+%       idx: 每个样本归属的簇索引, 从1开始, size(idx)=n*1;
+%       center: 每个簇的中心点坐标, size(center)=k*k;
+%       kerNS: 最后未进行kmeans的谱聚类得到的指示矩阵, size(kerNS)=n*k;
 
-N = size(A,1); % 样本数
-
-DN = diag( 1./sqrt(sum(A)+eps) );  % 度矩阵
-LapN = speye(N) - DN * A * DN;  % 对称归一化
-[~,~,vN] = svd(LapN);
-kerN = vN(:,N-k+1:N);  % 选最小的k个特征值对应的特征向量
+warning('off');
+MAX_ITER = 1000;
+REPLIC = 20;
+disp('cao lei');
+n = size(sM,1); % 样本数
+dM = diag( 1./sqrt(sum(sM)+eps) );  % 度矩阵
+lapM = speye(n) - dM * sM * dM;  % 对称归一化后的拉普拉斯矩阵
+[~,~,v] = svd(lapM);
+kerN = v(:,n-k+1:n);  % 选最小的k个特征值对应的特征向量
 normN = sum(kerN .^2, 2) .^.5;
-kerNS = bsxfun(@rdivide, kerN, normN + eps);  % 对其按行标准化
- 
-[CA, NMI, AR, F, P, R] = performKmeans(kerNS,k,truth);  % 执行kmeans, 返回指标
+kerNS = bsxfun(@rdivide, kerN, normN + eps);  % 对其按行标准化, 得到指示向量矩阵,size(kerNS)=n*k.
+[idx, center] = kmeans(kerNS,n,'MaxIter',MAX_ITER,'Replicates',REPLIC);
 
