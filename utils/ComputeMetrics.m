@@ -1,9 +1,9 @@
 function [ca, nmi, ar, f1, p, r] = ComputeMetrics(gnd, idx)
 %COMPUTEMETRICS 
-% 根据样本最终的簇索引以及ground truth计算指标
+% 根据预测的样本簇索引以及ground truth计算指标
 % Input:
 %       gnd: ground truth, size(gnd)=n*1;
-%       idx: 算法得到的样本簇索引, size(idx)=n*1;
+%       idx: 算法得到的聚类结果索引, size(idx)=n*1;
 % Output:
 %       ca: 聚类精度;
 %       nmi: 归一化互信息;

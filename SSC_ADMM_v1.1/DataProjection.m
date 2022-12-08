@@ -11,6 +11,7 @@
 
 
 function Xp = DataProjection(X,r)
+% 直白就是用PCA进行降维, 但为什么X没有进行中心化?
 
 if (nargin < 2)
     r = 0;

@@ -13,7 +13,7 @@ function [idx, c, Dpn, Ln] = GPCA(x, n, method)
 %
 % Inputs:
 %   x       data points to segment (输入的数据, size(x)=d*n)
-%   n       number of subspaces (聚类簇数)
+%   n       number of subspaces (聚类簇数\子空间数目)
 %   method  select what measure to use between normals to compute the
 %           affinity matrix
 %       'Cos'           cosine
@@ -21,7 +21,7 @@ function [idx, c, Dpn, Ln] = GPCA(x, n, method)
 %       'Exp_-sin^2'    exp of squared sine
 %
 % Outputs:
-%   idx   vector containing group membership number for each point (即索引, size(idx)=n*1)
+%   idx   vector containing group membership number for each point (聚类结果索引, size(idx)=n*1)
 %   c       vector with the coefficients of the fitted polynomial (拟合的多项式的系数, size(c)=未知*1)
 %   Dpn     unit length normals estimated from the polynomial
 %           differentiation (每个样本点的单位长度法线估计, size(Dpn)=未知*n)
