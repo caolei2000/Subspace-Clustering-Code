@@ -36,8 +36,40 @@ Input:
     x: 输入数据, size(x)=d*n;
     d: 要找到的子空间的维度;
     n: 聚类簇数(子空间数量)
-    t: 一个阈值参数(应该是判定为内点的?)
+    t: 判定为模型内点的阈值
 Output:
     group: 最终聚类索引, size(group)=n*1;;
     b: 暂时不懂什么意思, 先不管;
+```
+
+## utils
+
+介绍 `utils` 目录下可能需要用到或者理解的函数
+
+
+```matlab
+[idx, center, kerNS] = SpectralClustering(sM, k)
+
+Input:
+    sM:相似度矩阵，size(sM)=n*n;
+    k:聚类簇数;
+Output:
+    idx: 每个样本归属的簇索引, 从1开始, size(idx)=n*1;
+    center: 每个簇的中心点坐标, size(center)=k*k;
+    kerNS: 最后未进行kmeans的谱聚类得到的指示矩阵, size(kerNS)=n*k;
+```
+
+```matlab
+[ca, nmi, ar, f1, p, r] = ComputeMetrics(gnd, idx)
+
+Input:
+    gnd: ground truth, size(gnd)=n*1;
+    idx: 预测的样本所属簇索引, size(idx)=n*1;
+Output:
+    ca: 聚类精度;
+    nmi: 归一化互信息;
+    ar: 调整兰德指数;
+    f1: F1 score;
+    p: precision;
+    r: recall;
 ```
