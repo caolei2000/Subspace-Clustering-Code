@@ -45,7 +45,18 @@ Output:
 ## SSC
 
 ```matlab
+[idx,CMat] = SSC(X, r, affine, alpha, outlier, rho, k)
 
+Input: 
+    X: 数据, size(X)=n*d;
+    r: 使用PCA进行映射降维后的维度, 若r=0, 则不降维(通常取0);
+    affine: bool, 是否进行仿射变换(意义暂时未懂);
+    outlier: bool, 是否添加离群项约束(对结果有较大影响);
+    rho: 暂时未懂(对结果影响不大);
+    k: 聚类簇数(子空间数目);
+Output:
+    idx: 聚类结果索引, size(idx)=n*1;
+    CMat: SSC得到的稀疏系数矩阵, size(CMat)=n*n;
 ```
 
 ## utils
