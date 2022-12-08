@@ -9,7 +9,7 @@ gnd = gnd';
 % fea为数据，size(fea)=d*n
 % gnd为label, size(label)=n*1
 %% 选择subjects数量(聚类簇数)
-nCluster = 3;  % 聚类簇数
+nCluster = 5;  % 聚类簇数
 num = nCluster * 64;  % 总的数据量(每个簇有64个数据)
 fea = fea(:, 1:num);
 gnd = gnd(1:num, :);
@@ -44,3 +44,9 @@ r = 0; affine = false; alpha= 90000; outlier = false; rho = 1;  % 算法参数
 [idxSSC, CMat]= SSC(fea, r, affine, alpha, outlier, rho, nCluster);
 [MetricsSSC.ca, MetricsSSC.nmi, ~, ~, ~, ~] = ComputeMetrics(gnd, idxSSC);
 MetricsSSC
+%% LRR
+disp('Clustering by LRR');
+lambda = 0.08;
+[idxLRR, Z, E] = LRR(fea, lambda, nCluster);
+[MetricsLRR.ca, MetricsLRR.nmi, ~, ~, ~, ~] = ComputeMetrics(gnd, idxLRR);
+MetricsLRR

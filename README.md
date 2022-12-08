@@ -51,12 +51,29 @@ Input:
     X: 数据, size(X)=n*d;
     r: 使用PCA进行映射降维后的维度, 若r=0, 则不降维(通常取0);
     affine: bool, 是否进行仿射变换(意义暂时未懂);
+    alpha: 算法正则化参数;
     outlier: bool, 是否添加离群项约束(对结果有较大影响);
-    rho: 暂时未懂(对结果影响不大);
+    rho: 构建邻接矩阵时的一个参数, 意义暂时未懂(对结果影响不大);
     k: 聚类簇数(子空间数目);
 Output:
     idx: 聚类结果索引, size(idx)=n*1;
     CMat: SSC得到的稀疏系数矩阵, size(CMat)=n*n;
+```
+
+## LRR
+
+```matlab
+[idx, Z, E] = LRR(X, lambda, k)
+
+Input:
+    X: 数据, size(X)=d*n;
+    lambda: 算法正则化参数;
+    k: 聚类簇数;
+Output:
+    idx: 聚类结果索引;
+    Z: 得到的表示矩阵;
+    E: 恢复时得到的误差矩阵;
+
 ```
 
 ## utils
@@ -68,7 +85,7 @@ Output:
 [idx, center, kerNS] = SpectralClustering(sM, k)
 
 Input:
-    sM:相似度矩阵，size(sM)=n*n;
+    sM:相似度矩阵(邻接矩阵)，size(sM)=n*n;
     k:聚类簇数;
 Output:
     idx: 每个样本归属的簇索引,即聚类结果索引,从1开始, size(idx)=n*1;

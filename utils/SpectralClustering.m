@@ -2,7 +2,7 @@ function [idx, center, kerNS] = SpectralClustering(sM, k)
 %SpectralClustering 
 % 输入相似度矩阵（亲和力矩阵\邻接矩阵），进行谱聚类. 一次谱聚类, 里面默认进行了20次kmeans.
 % Input:
-%       sM:相似度矩阵，size(sM)=n*n;
+%       sM:相似度矩阵(邻接矩阵)，size(sM)=n*n;
 %       k:聚类簇数;
 % Output:
 %       idx: 每个样本归属的簇索引,即聚类结果索引,从1开始, size(idx)=n*1;
